@@ -6,15 +6,15 @@ import xml.etree.ElementTree as ET
 import numpy as np
 import csv
 import pandas
-from google.colab import drive
-from google.colab import files
+# from google.colab import drive
+# from google.colab import files
 
-%matplotlib inline
+# %matplotlib inline
 
-# automatically reload modules when they have changed
-%reload_ext autoreload
-%autoreload 2
-# import keras
+# # automatically reload modules when they have changed
+# %reload_ext autoreload
+# %autoreload 2
+# # import keras
 import keras
 
 # import keras_retinanet
@@ -35,6 +35,7 @@ import json
 import os
 import pickle as pkl
 import Save_solar
+import shutil
 
 def sliding_window(path_img):
     over_lap_x = 100
@@ -140,7 +141,11 @@ def solar_detection(images_path = ''):
 
     # load label to names mapping for visualization purposes
     labels_to_names = pandas.read_csv(CLASSES_FILE,header=None).T.loc[0].to_dict()
-    # sliding_window(images_path)
+    
+    list_dir = os.listdir('./')
+    if 'anh' in list_dir:
+        shutil.rmtree('anh') 
+    sliding_window(images_path)
 
     path_file = '/keras-retinanet/anh/'
     list_bb = {}
