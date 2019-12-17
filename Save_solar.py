@@ -77,7 +77,7 @@ def sort_bounding_box(list_bb, dimension): #Tham số dimension chỉ định s�
 #Vấn đề: Trường hợp phần lớn nhất của list không detect được thì tỷ lệ không còn chính xác.
 #Giải pháp: ta tính tỷ số so với độ lớn theo trục x của solar.
 
-def save_json(path_file_json, thresshold):
+def save_json(path_file_json, thresshold = 38):
     file = open(path_file_json, "r")
     boundingbox = file.read()
     boundingbox = json.loads(boundingbox)
@@ -133,6 +133,6 @@ def save_json(path_file_json, thresshold):
             if abs(bb_dict[key][index][0] - bb_dict[key][index+1][0]) < 15:
                 bb_dict[key].remove(box)
     json.dump(bb_dict, open("./bb_json", "w"))
-    return "./bb_json"
+    # return "./bb_json"
 
-save_json("./list_bb.json", 35)
+save_json("./list_bb.json")
