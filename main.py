@@ -67,8 +67,8 @@ def sliding_window(path_img):
             if(i == 0 and j == 0):
                 split_image = image[0: window_size[0], 0 : window_size[1]]
             # list_img.append(split_image)
-            cv2.imwrite('/keras-retinanet/anh/' + str(i)+'.'+str(j) + '.jpg', split_image)
-    cv2.imwrite('/keras-retinanet/a.jpg', image)
+            cv2.imwrite('./anh/' + str(i)+'.'+str(j) + '.jpg', split_image)
+    cv2.imwrite('./a.jpg', image)
 
 def img_inference(img_path, pos_window, model, labels_to_names):
     window_size = (240, 250)
@@ -133,7 +133,7 @@ def solar_detection(images_path = ''):
 
     keras.backend.tensorflow_backend.set_session(get_session())
     #load model
-    model_path = '/keras-retinanet/resnet50_csv_10.h5'
+    model_path = './resnet50_csv_10.h5'
     print(model_path)
     # load retinanet model
     model = models.load_model(model_path, backbone_name='resnet50')
@@ -146,8 +146,9 @@ def solar_detection(images_path = ''):
     if 'anh' in list_dir:
         shutil.rmtree('anh') 
     sliding_window(images_path)
+    os.mkdir('anh')
 
-    path_file = '/keras-retinanet/anh/'
+    path_file = './anh/'
     list_bb = {}
     for img in os.listdir(path_file):
         A = img.split('.')
@@ -158,9 +159,9 @@ def solar_detection(images_path = ''):
         bb = img_inference(path_img, pos_window, model, labels_to_names)
         # print(bb)
         list_bb[id] = bb
-    with open('/keras-retinanet/list_bb.json', 'w') as f_w:
+    with open('./list_bb.json', 'w') as f_w:
         json.dump(list_bb, f_w)
-solar_detection(images_path = '/keras-retinanet/7fc8992d8a_012288112DOPENPIPELINE_Orthomosaic_export_FriNov22014645.383588.jpg')
-Save_solar.save_json('/keras-retinanet/list_bb.json')
+solar_detection(images_path = './keras-retinanet/7fc8992d8a_012288112DOPENPIPELINE_Orthomosaic_export_FriNov22014645.383588.jpg')
+Save_solar.save_json('./list_bb.json')
 
    

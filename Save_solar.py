@@ -132,7 +132,7 @@ def save_json(path_file_json, thresshold = 38):
             index = bb_dict[key].index(box)
             if abs(bb_dict[key][index][0] - bb_dict[key][index+1][0]) < 15:
                 bb_dict[key].remove(box)
-    json.dump(bb_dict, open("./bb_json", "w"))
+    json.dump(bb_dict, open("./bb_json.json", "w"))
     # return "./bb_json"
 
 save_json("./list_bb.json")
